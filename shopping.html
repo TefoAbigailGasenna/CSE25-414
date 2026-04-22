@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Botsnav - Shopping</title>
+</head>
+
+<body>
+
+
+    <header>
+        <nav>
+            <div id="logo">
+                <img src="shops/logo.webp" alt="Botsnav Logo" width="130" height="42">
+            </div>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="hotels.html">Hotels</a></li>
+                <li><a href="dining.html">Dining</a></li>
+                <li><a href="sports.html">Sports</a></li>
+                <li><a href="shopping.html">Shopping</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="feedback.html">Feedback</a></li>
+            </ul>
+        </nav>
+    </header>
+
+
+    <section id="page-banner">
+        <img src="shops/mall.webp" alt="Shopping Banner" width="1200" height="200">
+        <div id="banner-content">
+            <h1>Shopping</h1>
+            <p>Local Markets &middot; Malls &middot; Boutiques &middot; Craft Shops in Botswana</p>
+        </div>
+    </section>
+
+
+    <section id="search-bar">
+        <label for="shopping-search">Search:</label>
+        <input type="text" id="shopping-search" name="shopping-search" placeholder="Type market, mall or shop name...">
+        <button type="button">Search</button>
+    </section>
+
+
+    <section id="filter-tabs">
+        <p>Filter by category:</p>
+        <ul>
+            <li><a href="#all">All</a></li>
+            <li><a href="#markets">Local Markets</a></li>
+            <li><a href="#malls">Malls</a></li>
+            <li><a href="#boutiques">Boutiques</a></li>
+        </ul>
+    </section>
+
+    
+    <section id="shopping-listings">
+        <h2>Shopping Listings</h2>
+
+
+        <article id="airport-junction" class="shop-card">
+            <img src="shops/mall.webp" alt="Airport Junction Mall" width="140" height="100">
+            <div class="shop-info">
+                <h3>Airport Junction Mall</h3>
+                <p>&#128205; Gaborone &middot; Shopping Mall</p>
+                <button type="button">View More</button>
+            </div>
+        </article>
+
+
+        <article id="botswanacraft" class="shop-card">
+            <img src="shops/BotswnaCraft.jpeg" alt="Botswanacraft Market" width="140" height="100">
+            <div class="shop-info">
+                <h3>Botswanacraft Market</h3>
+                <p>&#128205; Gaborone &middot; Craft Market</p>
+                <button type="button">View More</button>
+            </div>
+        </article>
+
+
+        <article id="sesigo" class="shop-card">
+            <img src="shops/design.jpeg" alt="Sesigo Designs Boutique" width="140" height="100">
+            <div class="shop-info">
+                <h3>Sesigo Designs</h3>
+                <p>&#128205; Gaborone &middot; African Fashion Boutique</p>
+                <button type="button">View More</button>
+            </div>
+        </article>
+
+
+        <article id="local-market" class="shop-card">
+            <img src="shops/dijo.jpeg" alt="Local Food Market" width="140" height="100">
+            <div class="shop-info">
+                <h3>Local Food Market</h3>
+                <p>&#128205; Gaborone &middot; Local Market</p>
+                <button type="button">View More</button>
+            </div>
+        </article>
+
+    </section>
+
+
+    <div id="shopping-overlay">
+        <button type="button" id="close-overlay">&#10005; Close</button>
+        <h2>Shop / Market Detail</h2>
+        <div id="overlay-inner">
+            <img src="shops/design.jpeg" alt="Shop Image" width="200" height="150">
+            <div id="overlay-details">
+                <p><strong>Name:</strong> Sesigo Designs</p>
+                <p><strong>&#128205; Location:</strong> Gaborone, Botswana</p>
+                <p><strong>&#128336; Hours:</strong> 9AM &ndash; 6PM</p>
+                <p><strong>&#128222; Contact:</strong> +267 000 3333</p>
+                <p><strong>&#128248; Category:</strong> African Fashion Boutique</p>
+                <button type="button">Get Directions</button>
+            </div>
+        </div>
+    </div>
+
+
+    <footer>
+        <div id="footer-col-1">
+            <h4>Botsnav</h4>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+            </ul>
+        </div>
+        <div id="footer-col-2">
+            <h4>Quick Links</h4>
+            <ul>
+                <li><a href="hotels.html">Hotels</a></li>
+                <li><a href="dining.html">Dining</a></li>
+                <li><a href="shopping.html">Shopping</a></li>
+            </ul>
+        </div>
+        <div id="footer-col-3">
+            <h4>Contact</h4>
+            <p>Gaborone, Botswana</p>
+            <p>info@botsnav.co.bw</p>
+        </div>
+        <div id="footer-copy">
+            <p>&copy; 2026 Botsnav &middot; All rights reserved</p>
+        </div>
+    </footer>
+
+</body>
+
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Botsnav - Sports &amp; Games</title>
+</head>
+
+<body>
+
+   
+    <header>
+        <nav>
+            <div id="logo">
+                <img src="games/logo.webp" alt="Botsnav Logo" width="130" height="42">
+            </div>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="hotels.html">Hotels</a></li>
+                <li><a href="dining.html">Dining</a></li>
+                <li><a href="sports.html">Sports</a></li>
+                <li><a href="shopping.html">Shopping</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="feedback.html">Feedback</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    
+    <section id="page-banner">
+        <img src="games/stadium.jpeg" alt="Sports and Games Banner" width="1200" height="200">
+        <div id="banner-content">
+            <h1>Sports &amp; Games</h1>
+            <p>Sporting Events &middot; Facilities in Botswana</p>
+        </div>
+    </section>
+
+   
+    <section id="search-bar">
+        <label for="sports-search">Search:</label>
+        <input type="text" id="sports-search" name="sports-search" placeholder="Type event or facility name...">
+        <button type="button">Search</button>
+    </section>
+
+    
+    <section id="filter-tabs">
+        <p>Filter by type:</p>
+        <ul>
+            <li><a href="#all">All</a></li>
+            <li><a href="#events">Sporting Events</a></li>
+            <li><a href="#facilities">Facilities</a></li>
+        </ul>
+    </section>
+
+    
+    <section id="events-schedule">
+        <h2>Upcoming Events Schedule</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Event Name</th>
+                    <th>Venue</th>
+                    <th>Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Apr 12, 2026</td>
+                    <td>BFA Cup 2026</td>
+                    <td>National Stadium, Gaborone</td>
+                    <td>15:00</td>
+                </tr>
+                <tr>
+                    <td>Sep 10, 2026</td>
+                    <td>BNSC Games</td>
+                    <td>Aquatic Centre, Gaborone</td>
+                    <td>09:00</td>
+                </tr>
+                <tr>
+                    <td>Jun 22, 2026</td>
+                    <td>Tennis Open</td>
+                    <td>Danie Marais, Gaborone</td>
+                    <td>10:00</td>
+                </tr>
+            </tbody>
+        </table>
+        <p>Click a row to view full event details</p>
+    </section>
+
+   
+    <section id="facilities-listings">
+        <h2>Sports Facilities</h2>
+
+        
+        <article id="national-stadium" class="facility-card">
+            <img src="games/stadium.jpeg" alt="National Stadium" width="300" height="180">
+            <h3>National Stadium</h3>
+            <p>&#128205; Gaborone &middot; Football</p>
+            <button type="button">View More</button>
+        </article>
+
+        
+        <article id="bnsc-aquatic" class="facility-card">
+            <img src="games/aquatics.jpeg" alt="BNSC Aquatic Centre" width="300" height="180">
+            <h3>BNSC Aquatic Centre</h3>
+            <p>&#128205; Gaborone &middot; Swimming</p>
+            <button type="button">View More</button>
+        </article>
+
+       
+        <article id="cricket-ground" class="facility-card">
+            <img src="games/cricket.jpeg" alt="Cricket Ground" width="300" height="180">
+            <h3>Cricket Ground</h3>
+            <p>&#128205; Gaborone &middot; Cricket</p>
+            <button type="button">View More</button>
+        </article>
+
+    </section>
+
+   
+    <div id="sports-overlay">
+        <button type="button" id="close-overlay">&#10005; Close</button>
+        <h2>Event / Facility Detail</h2>
+        <div id="overlay-inner">
+            <img src="games/aquatics.jpeg" alt="Facility Image" width="200" height="150">
+            <div id="overlay-details">
+                <p><strong>Name:</strong> BNSC Aquatic Centre</p>
+                <p><strong>&#128205; Location:</strong> Gaborone, Botswana</p>
+                <p><strong>&#128336; Hours:</strong> 6AM &ndash; 8PM</p>
+                <p><strong>&#128222; Contact:</strong> +267 000 2222</p>
+                <p><strong>&#127946; Category:</strong> Swimming Facility</p>
+                <button type="button">Learn More / Sign Up</button>
+            </div>
+        </div>
+    </div>
+
+    
+    <footer>
+        <div id="footer-col-1">
+            <h4>Botsnav</h4>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+            </ul>
+        </div>
+        <div id="footer-col-2">
+            <h4>Quick Links</h4>
+            <ul>
+                <li><a href="hotels.html">Hotels</a></li>
+                <li><a href="dining.html">Dining</a></li>
+                <li><a href="sports.html">Sports</a></li>
+            </ul>
+        </div>
+        <div id="footer-col-3">
+            <h4>Contact</h4>
+            <p>Gaborone, Botswana</p>
+            <p>info@botsnav.co.bw</p>
+        </div>
+        <div id="footer-copy">
+            <p>&copy; 2026 Botsnav &middot; All rights reserved</p>
+        </div>
+    </footer>
+
+</body>
+
+</html>
