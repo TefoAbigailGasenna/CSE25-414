@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us - BotsNav</title>
+  <meta name="description" content="Get in touch with BotsNav. Find our contact details, send a message, or browse our FAQ.">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Page banner with photo */
+    .page-banner-photo {
+      position: relative; height: 320px; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+      background: url('dinepe/community.jpg') center/cover no-repeat;
+    }
+    .page-banner-photo::before { content:''; position:absolute; inset:0; background:rgba(11,61,107,.72); }
+    .page-banner-photo .banner-text { position:relative; z-index:2; text-align:center; color:#fff; }
+    .page-banner-photo h1 { font-family:'Playfair Display',serif; font-size:clamp(2rem,5vw,3.2rem); margin-bottom:.5rem; }
+    .page-banner-photo p  { font-size:1rem; opacity:.85; }
+
+    /* Contact info box */
+    .contact-info-box { background:#0b3d6b; color:#fff; border-radius:14px; padding:2.5rem 2rem; height:100%; }
+    .contact-info-box h4 { font-family:'Playfair Display',serif; font-size:1.4rem; margin-bottom:1.5rem; color:#e8a020; }
+    .ci-item { display:flex; align-items:flex-start; gap:1rem; margin-bottom:1.4rem; }
+    .ci-icon { width:42px; height:42px; background:rgba(255,255,255,.12); border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; color:#e8a020; font-size:1rem; }
+    .ci-label { font-size:.8rem; opacity:.65; margin-bottom:.2rem; }
+    .ci-value { font-weight:600; font-size:.95rem; }
+
+    /* Form card */
+    .form-card { background:#fff; border-radius:14px; padding:2.5rem 2rem; box-shadow:0 4px 24px rgba(0,0,0,.1); }
+    .form-card h4 { font-family:'Playfair Display',serif; font-size:1.4rem; color:#0b3d6b; margin-bottom:1.5rem; }
+    .form-control { border-radius:8px; border:2px solid #e5e7eb; padding:.75rem 1rem; font-size:.9rem; transition:border-color .2s; }
+    .form-control:focus { border-color:#0b3d6b; box-shadow:none; }
+    .form-label { font-weight:600; font-size:.85rem; color:#111827; margin-bottom:.35rem; }
+    .btn-submit { background:#0b3d6b; color:#fff; border:none; border-radius:50px; padding:.85rem 2.5rem; font-weight:700; font-size:.95rem; width:100%; cursor:pointer; transition:.3s; }
+    .btn-submit:hover { background:#0e4f8b; }
+
+    /* Map placeholder */
+    .map-box {
+      background: linear-gradient(135deg,#e8eef5,#c8daea);
+      border-radius:14px; height:340px;
+      display:flex; flex-direction:column; align-items:center; justify-content:center;
+      gap:.8rem; color:#0b3d6b; font-weight:600; box-shadow:0 4px 22px rgba(0,0,0,.1);
+      position:relative; overflow:hidden;
+    }
+    .map-box::before {
+      content:''; position:absolute; inset:0;
+      background: url('dinepe/community.jpg') center/cover;
+      opacity:.18;
+    }
+    .map-box > * { position:relative; z-index:1; }
+    .map-pin { font-size:3.5rem; color:#e8a020; animation:bounce 1.4s infinite; }
+    @keyframes bounce { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-10px);} }
+
+    /* FAQ */
+    .faq-item { background:#fff; border-radius:12px; margin-bottom:.75rem; box-shadow:0 2px 12px rgba(0,0,0,.07); overflow:hidden; }
+    .faq-q { padding:1.1rem 1.4rem; font-weight:600; cursor:pointer; display:flex; justify-content:space-between; align-items:center; color:#111827; transition:background .25s; }
+    .faq-q:hover { background:#f0f4ff; }
+    .faq-q.open { background:#0b3d6b; color:#fff; }
+    .faq-q.open .chevron { transform:rotate(180deg); color:#e8a020; }
+    .faq-a { max-height:0; overflow:hidden; transition:max-height .4s ease,padding .3s; font-size:.9rem; color:#6b7280; }
+    .faq-a.open { max-height:200px; padding:1rem 1.4rem; }
+    .chevron { transition:transform .3s; }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg sticky-top" style="background:#0b3d6b;padding:.4rem 1.5rem;box-shadow:0 2px 16px rgba(0,0,0,.22);">
+  <div class="container-xl">
+    <a class="navbar-brand" href="index.html" style="font-family:'Playfair Display',serif;font-size:1.65rem;color:#e8a020;"><img src="dinepe/logo.png" alt="BotsNav Logo" style="height:130px;width:auto;object-fit:contain;filter:drop-shadow(1px 1px 0 #fff) drop-shadow(-1px -1px 0 #fff) drop-shadow(1px -1px 0 #fff) drop-shadow(-1px 1px 0 #fff);"></a>
+    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+      <span style="color:#fff;font-size:1.4rem;"><i class="fas fa-bars"></i></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navMenu">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="hotels.html">Hotels</a></li>
+        <li class="nav-item"><a class="nav-link" href="dining.html">Dining</a></li>
+        <li class="nav-item"><a class="nav-link" href="sports.html">Sports</a></li>
+        <li class="nav-item"><a class="nav-link" href="shopping.html">Shopping</a></li>
+        <li class="nav-item"><a class="nav-link active" href="contact.html">Contact</a></li>
+        <li class="nav-item"><a class="nav-link" href="feedback.html">Feedback</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- BANNER -->
+<div class="page-banner-photo">
+  <div class="banner-text">
+    <h1>CONTACT US</h1>
+    <p>We'd love to hear from you. Reach out and we'll respond promptly.</p>
+  </div>
+</div>
+
+<!-- CONTACT INFO + FORM -->
+<section style="padding:4rem 0;background:#f4f6f9;">
+  <div class="container-xl">
+    <div class="row g-4 mb-4">
+      <!-- Left: Contact Info -->
+      <div class="col-lg-4">
+        <div class="contact-info-box">
+          <h4><i class="fas fa-address-book me-2"></i>Contact Information</h4>
+          <div class="ci-item">
+            <div class="ci-icon"><i class="fas fa-map-marker-alt"></i></div>
+            <div><div class="ci-label">Our Office</div><div class="ci-value">Plot 1234, Main Mall<br>Gaborone, Botswana</div></div>
+          </div>
+          <div class="ci-item">
+            <div class="ci-icon"><i class="fas fa-phone"></i></div>
+            <div><div class="ci-label">Phone</div><div class="ci-value">+267 7123 4567<br>+267 3901 2345</div></div>
+          </div>
+          <div class="ci-item">
+            <div class="ci-icon"><i class="fas fa-envelope"></i></div>
+            <div><div class="ci-label">Email</div><div class="ci-value">info@botsnav.co.bw<br>support@botsnav.co.bw</div></div>
+          </div>
+          <div class="ci-item">
+            <div class="ci-icon"><i class="fas fa-clock"></i></div>
+            <div><div class="ci-label">Office Hours</div><div class="ci-value">Mon-Fri: 8am - 5pm<br>Sat: 9am - 1pm</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Contact Form -->
+      <div class="col-lg-8">
+        <div class="form-card">
+          <h4><i class="fas fa-paper-plane me-2" style="color:#e8a020;"></i>Send Us a Message</h4>
+          <form id="contactForm" onsubmit="submitForm(event)">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label" for="cName">Full Name</label>
+                <input type="text" class="form-control" id="cName" placeholder="Your full name" required>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label" for="cEmail">Email Address</label>
+                <input type="email" class="form-control" id="cEmail" placeholder="your@email.com" required>
+              </div>
+              <div class="col-12">
+                <label class="form-label" for="cSubject">Subject</label>
+                <input type="text" class="form-control" id="cSubject" placeholder="How can we help?">
+              </div>
+              <div class="col-12">
+                <label class="form-label" for="cMessage">Message</label>
+                <textarea class="form-control" id="cMessage" rows="5" placeholder="Write your message here..." required></textarea>
+              </div>
+              <div class="col-12">
+                <button type="submit" class="btn-submit"><i class="fas fa-paper-plane me-2"></i>Send Message</button>
+              </div>
+            </div>
+          </form>
+          <div id="formSuccess" style="display:none;margin-top:1rem;padding:1rem;background:#d1fae5;border-radius:8px;color:#065f46;">
+            <i class="fas fa-check-circle me-2"></i>Thank you! Your message has been sent. We'll be in touch soon.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MAP PLACEHOLDER -->
+    <div class="map-box mb-5">
+      <i class="fas fa-map-marker-alt map-pin"></i>
+      <h5 style="font-size:1.2rem;">Our Location - Gaborone, Botswana</h5>
+      <p style="font-size:.88rem;opacity:.7;text-align:center;max-width:300px;">Plot 1234, Main Mall, Gaborone<br>Click below to open in Google Maps</p>
+      <a href="https://maps.google.com/?q=Gaborone,Botswana" target="_blank" style="background:#e8a020;color:#111;font-weight:700;padding:.65rem 1.6rem;border-radius:50px;text-decoration:none;font-size:.9rem;"><i class="fas fa-directions me-1"></i>Open in Google Maps</a>
+    </div>
+
+    <!-- FAQ ACCORDION -->
+    <div style="width:55px;height:4px;background:#e8a020;border-radius:4px;margin-bottom:.9rem;"></div>
+    <h3 style="font-family:'Playfair Display',serif;font-size:1.9rem;color:#0b3d6b;margin-bottom:.5rem;">Frequently Asked Questions</h3>
+    <p style="color:#6b7280;margin-bottom:1.8rem;">Answers to the most common questions about BotsNav.</p>
+    <div id="faqList"></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer style="background:#111827;color:rgba(255,255,255,.8);padding:3rem 1rem 1.5rem;">
+  <div class="container-xl">
+    <div class="row g-4">
+      <div class="col-md-4"><h5 style="font-family:'Playfair Display',serif;color:#e8a020;margin-bottom:1rem;">BotsNav</h5><p style="font-size:.87rem;opacity:.7;">Your premier digital guide to Botswana.</p></div>
+      <div class="col-md-4">
+        <h5 style="font-family:'Playfair Display',serif;color:#e8a020;margin-bottom:1rem;">Quick Links</h5>
+        <a href="index.html" style="color:rgba(255,255,255,.6);text-decoration:none;font-size:.87rem;display:block;margin-bottom:.4rem;">Home</a>
+        <a href="hotels.html" style="color:rgba(255,255,255,.6);text-decoration:none;font-size:.87rem;display:block;margin-bottom:.4rem;">Hotels</a>
+        <a href="dining.html" style="color:rgba(255,255,255,.6);text-decoration:none;font-size:.87rem;display:block;margin-bottom:.4rem;">Dining</a>
+        <a href="feedback.html" style="color:rgba(255,255,255,.6);text-decoration:none;font-size:.87rem;display:block;margin-bottom:.4rem;">Feedback</a>
+      </div>
+      <div class="col-md-4"><h5 style="font-family:'Playfair Display',serif;color:#e8a020;margin-bottom:1rem;">Contact</h5><p style="font-size:.87rem;opacity:.7;"><i class="fas fa-envelope me-2" style="color:#e8a020;"></i>info@botsnav.co.bw</p><p style="font-size:.87rem;opacity:.7;"><i class="fas fa-phone me-2" style="color:#e8a020;"></i>+267 7123 4567</p></div>
+    </div>
+    <hr style="border-color:rgba(255,255,255,.12);margin:2rem 0 1rem;">
+    <div style="text-align:center;font-size:.8rem;opacity:.55;">© 2025 BotsNav. All rights reserved.</div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+const faqs = [
+  { q:"What is BotsNav?",                     a:"BotsNav is Botswana's premier digital directory and guide platform, helping users discover the best hotels, restaurants, sports venues, and shopping destinations across the country." },
+  { q:"Is BotsNav free to use?",              a:"Yes! Browsing and searching on BotsNav is completely free for all users. Businesses wishing to list may contact us for partnership opportunities." },
+  { q:"How do I list my business on BotsNav?",a:"Send us an email at listings@botsnav.co.bw or fill in the contact form above with details about your business." },
+  { q:"Are the hotel prices shown final?",    a:"Prices displayed are indicative rates. Final prices may vary depending on season, room type, and availability. Always confirm directly with the hotel." },
+  { q:"How do I make a hotel reservation?",   a:"Click on any hotel listing, open the detail view, and click 'Make Reservation'. This will provide the hotel's contact details or booking link." },
+  { q:"Can I leave reviews on BotsNav?",      a:"Absolutely! Share your experiences via our Feedback page. Your reviews help other users and help businesses improve their services." },
+  { q:"How often is the information updated?",a:"We strive to update listings regularly. If you notice outdated information, contact us and we will update it promptly." },
+  { q:"Does BotsNav cover all of Botswana?",  a:"We have strong coverage in Gaborone, Maun, Francistown, and Kasane, and are actively expanding to cover all districts." },
+];
+const list = document.getElementById('faqList');
+faqs.forEach((f,i) => {
+  list.innerHTML += `<div class="faq-item">
+    <div class="faq-q" id="q${i}" onclick="toggle(${i})"><span>${f.q}</span><i class="fas fa-chevron-down chevron"></i></div>
+    <div class="faq-a" id="a${i}">${f.a}</div>
+  </div>`;
+});
+function toggle(i){
+  const q=document.getElementById('q'+i), a=document.getElementById('a'+i), open=q.classList.contains('open');
+  faqs.forEach((_,j)=>{ document.getElementById('q'+j).classList.remove('open'); document.getElementById('a'+j).classList.remove('open'); });
+  if(!open){ q.classList.add('open'); a.classList.add('open'); }
+}
+function submitForm(e){
+  e.preventDefault();
+  document.getElementById('formSuccess').style.display='block';
+  document.getElementById('contactForm').reset();
+  setTimeout(()=>document.getElementById('formSuccess').style.display='none',5000);
+}
+</script>
+</body>
+</html>

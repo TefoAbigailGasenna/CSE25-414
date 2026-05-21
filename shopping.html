@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shopping - BotsNav</title>
+  <meta name="description" content="Discover the best shopping malls, markets and boutiques in Botswana.">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .page-banner-photo{position:relative;height:300px;overflow:hidden;display:flex;align-items:center;justify-content:center;background:url('dinepe/AirportJunction.png') center/cover no-repeat;}
+    .page-banner-photo::before{content:'';position:absolute;inset:0;background:rgba(11,61,107,.65);}
+    .page-banner-photo .bt{position:relative;z-index:2;text-align:center;color:#fff;}
+    .page-banner-photo h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3rem);margin-bottom:.4rem;}
+  </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg sticky-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="index.html"><img src="dinepe/logo.png" alt="BotsNav Logo" style="height:80px;width:auto;object-fit:contain;"></a>
+    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+      <span style="color:#fff;font-size:1.4rem;"><i class="fas fa-bars"></i></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navMenu">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="hotels.html">Hotels</a></li>
+        <li class="nav-item"><a class="nav-link" href="dining.html">Dining</a></li>
+        <li class="nav-item"><a class="nav-link" href="sports.html">Sports</a></li>
+        <li class="nav-item"><a class="nav-link active" href="shopping.html">Shopping</a></li>
+        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+        <li class="nav-item"><a class="nav-link" href="feedback.html">Feedback</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="page-banner-photo">
+  <div class="bt">
+    <h1><i class="fas fa-shopping-bag me-2"></i>Shopping</h1>
+    <p style="opacity:.85;font-size:1rem;">From upscale malls to vibrant local markets.</p>
+  </div>
+</div>
+
+<section style="padding:3rem 0;">
+  <div class="container">
+    <div class="search-bar">
+      <i class="fas fa-search" style="color:var(--text-muted);"></i>
+      <input type="text" id="shopSearch" placeholder="Search malls, markets or stores..." oninput="filterCards()">
+      <button onclick="filterCards()">Search</button>
+    </div>
+    <div class="filter-tabs">
+      <div class="filter-tab active" onclick="setTab(this,'all')">All</div>
+      <div class="filter-tab" onclick="setTab(this,'mall')">Shopping Malls</div>
+      <div class="filter-tab" onclick="setTab(this,'market')">Local Markets</div>
+      <div class="filter-tab" onclick="setTab(this,'boutique')">Boutiques</div>
+      <div class="filter-tab" onclick="setTab(this,'craft')">Crafts &amp; Curios</div>
+    </div>
+    <div class="d-flex flex-column gap-3" id="shopGrid"></div>
+    <button class="view-more-btn" id="viewMoreBtn" onclick="loadMore()">View More <i class="fas fa-chevron-down ms-1"></i></button>
+  </div>
+</section>
+
+<!-- DETAIL OVERLAY -->
+<div class="detail-overlay" id="detailOverlay">
+  <div class="detail-box" style="position:relative;">
+    <button class="btn-close-overlay" onclick="closeOverlay()">✕</button>
+    <img id="detailImg" src="" alt="">
+    <div class="detail-body">
+      <span class="card-badge" id="detailBadge"></span>
+      <div class="detail-title" id="detailTitle"></div>
+      <p style="color:var(--text-muted);font-size:.9rem;" id="detailDesc"></p>
+      <div id="detailMeta"></div>
+      <div class="d-flex gap-2 mt-3">
+        <button class="btn-accent" onclick="closeOverlay()"><i class="fas fa-map-marker-alt me-1"></i>Get Directions</button>
+        <button class="btn-outline-primary-custom" onclick="closeOverlay()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-md-4"><h5>BotsNav</h5><p style="font-size:.88rem;opacity:.7;">Your premier guide to Botswana.</p></div>
+      <div class="col-md-4"><h5>Quick Links</h5><a href="index.html">Home</a><a href="hotels.html">Hotels</a><a href="dining.html">Dining</a><a href="contact.html">Contact</a></div>
+      <div class="col-md-4"><h5>Contact</h5><p style="font-size:.88rem;opacity:.7;"><i class="fas fa-envelope me-2" style="color:var(--accent);"></i>info@botsnav.co.bw</p></div>
+    </div>
+    <hr class="footer-divider">
+    <div class="footer-bottom">© 2025 BotsNav. All rights reserved.</div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+const shops = [
+  { name:"Game City Mall",       cat:"mall",     loc:"Gaborone", hours:"9am-8pm", desc:"Botswana's largest shopping mall with over 200 stores including Pick n Pay, Woolworths, food courts, a cinema and a kids play area.", img:"dinepe/gamecity.png", stores:"200+", parking:"Free" },
+  { name:"Main Mall",            cat:"mall",     loc:"Gaborone", hours:"8am-7pm", desc:"Gaborone's iconic open-air shopping precinct in the heart of the city, home to boutiques, banks, restaurants and government offices.", img:"dinepe/mainmall.png", stores:"80+", parking:"Paid" },
+  { name:"Rail Park Mall",       cat:"mall",     loc:"Gaborone", hours:"9am-9pm", desc:"A modern, upmarket shopping centre near the CBD with premium fashion brands, a supermarket, eateries and multi-storey parking.", img:"dinepe/Railpark-Mall.jpg", stores:"120+", parking:"Free" },
+  { name:"Gaborone Craft Market",cat:"craft",    loc:"Gaborone", hours:"Mon-Sat 8am-5pm", desc:"A vibrant open-air market where local artisans sell hand-crafted baskets, pottery, wood carvings, beadwork and traditional textiles.", img:"dinepe/marketbw.png", stores:"50+ stalls", parking:"Street" },
+  { name:"Riverwalk Mall",       cat:"mall",     loc:"Gaborone", hours:"9am-8pm", desc:"A lively shopping and entertainment hub in the northern suburbs with fashion stores, a gym, restaurants, and a cinema.", img:"dinepe/riverwalk.png", stores:"90+", parking:"Free" },
+  { name:"Oodi Weavers",         cat:"craft",    loc:"Oodi Village", hours:"8am-4pm Mon-Fri", desc:"Internationally renowned weaving cooperative producing stunning tapestries depicting Botswana's wildlife and culture - a must-visit.", img:"dinepe/oodi.png", stores:"Workshop+Shop", parking:"Free" },
+  { name:"Fashion Boutique BW",  cat:"boutique", loc:"Gaborone", hours:"9am-6pm", desc:"Locally designed and sourced clothing boutique promoting Botswana's fashion industry with contemporary African-inspired designs.", img:"dinepe/boutique.jpg", stores:"1", parking:"Mall parking" },
+  { name:"Botswana craft",       cat:"market",   loc:"Maun",     hours:"Daily 8am-6pm", desc:"A colourful local craft village at the gateway to the Okavango Delta, selling baskets, curios, skins and safari souvenirs.", img:"dinepe/BotswanaCraft.png", stores:"40+ stalls", parking:"Free" },
+  { name:"Francistown Mall",     cat:"mall",     loc:"Francistown", hours:"9am-7pm", desc:"The main shopping mall in Francistown with national and regional chain stores, a food court and banking services.", img:"dinepe/galo.png", stores:"70+", parking:"Free" },
+  { name:"Diamonds Jewellers",   cat:"boutique", loc:"Gaborone", hours:"9am-6pm", desc:"Botswana is the world's leading diamond producer - browse certified Debswana diamonds and fine jewellery at this prestigious store.", img:"dinepe/jewels.png", stores:"1", parking:"Mall" },
+];
+
+let activeTab='all', visibleCount=5;
+function renderCards(data){
+  const grid=document.getElementById('shopGrid'); grid.innerHTML='';
+  const q=document.getElementById('shopSearch').value.toLowerCase();
+  const filtered=data.filter(s=>(activeTab==='all'||s.cat===activeTab)&&(s.name.toLowerCase().includes(q)||s.loc.toLowerCase().includes(q)));
+  filtered.slice(0,visibleCount).forEach(s=>{
+    const div=document.createElement('div');
+    div.innerHTML=`<div class="h-card" onclick="openDetail(${shops.indexOf(s)})">
+      <img src="${s.img}" alt="${s.name}" loading="lazy">
+      <div class="hc-body">
+        <div class="card-badge">${s.cat}</div>
+        <div class="lc-title" style="font-size:1.05rem;">${s.name}</div>
+        <div class="lc-sub"><i class="fas fa-map-marker-alt me-1"></i>${s.loc}</div>
+        <div class="lc-sub mt-1"><i class="fas fa-clock me-1"></i>${s.hours}</div>
+        <div class="lc-sub mt-1"><i class="fas fa-store me-1"></i>${s.stores} stores &nbsp;|&nbsp; <i class="fas fa-parking me-1"></i>${s.parking}</div>
+      </div></div>`;
+    grid.appendChild(div);
+  });
+  document.getElementById('viewMoreBtn').style.display=filtered.length>visibleCount?'block':'none';
+}
+function filterCards(){ visibleCount=5; renderCards(shops); }
+function loadMore(){ visibleCount+=5; renderCards(shops); }
+function setTab(el,tab){ document.querySelectorAll('.filter-tab').forEach(t=>t.classList.remove('active')); el.classList.add('active'); activeTab=tab; filterCards(); }
+function openDetail(i){
+  const s=shops[i];
+  document.getElementById('detailImg').src=s.img;
+  document.getElementById('detailTitle').textContent=s.name;
+  document.getElementById('detailBadge').textContent=s.cat;
+  document.getElementById('detailDesc').textContent=s.desc;
+  document.getElementById('detailMeta').innerHTML=`<p><strong>Location:</strong> ${s.loc}</p><p><strong>Hours:</strong> ${s.hours}</p><p><strong>Stores:</strong> ${s.stores} &nbsp;|&nbsp; <strong>Parking:</strong> ${s.parking}</p>`;
+  document.getElementById('detailOverlay').classList.add('show');
+}
+function closeOverlay(){ document.getElementById('detailOverlay').classList.remove('show'); }
+document.getElementById('detailOverlay').addEventListener('click',e=>{if(e.target===e.currentTarget)closeOverlay();});
+renderCards(shops);
+</script>
+</body>
+</html>

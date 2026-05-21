@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hotels - BotsNav</title>
+  <meta name="description" content="Browse and book the best hotels across Botswana on BotsNav.">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .page-banner-photo{position:relative;height:300px;overflow:hidden;display:flex;align-items:center;justify-content:center;background:url('dinepe/oasis.png') center/cover no-repeat;}
+    .page-banner-photo::before{content:'';position:absolute;inset:0;background:rgba(11,61,107,.68);}
+    .page-banner-photo .bt{position:relative;z-index:2;text-align:center;color:#fff;}
+    .page-banner-photo h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3rem);margin-bottom:.4rem;}
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg sticky-top" id="mainNav">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="index.html">
+      <img src="dinepe/logo.png" alt="BotsNav Logo" style="height:130px;width:auto;object-fit:contain;filter:drop-shadow(1px 1px 0 #fff) drop-shadow(-1px -1px 0 #fff) drop-shadow(1px -1px 0 #fff) drop-shadow(-1px 1px 0 #fff);">
+    </a>
+    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+      <span style="color:#fff;font-size:1.4rem;"><i class="fas fa-bars"></i></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navMenu">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+        <li class="nav-item"><a class="nav-link active" href="hotels.html">Hotels</a></li>
+        <li class="nav-item"><a class="nav-link" href="dining.html">Dining</a></li>
+        <li class="nav-item"><a class="nav-link" href="sports.html">Sports</a></li>
+        <li class="nav-item"><a class="nav-link" href="shopping.html">Shopping</a></li>
+        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+        <li class="nav-item"><a class="nav-link" href="feedback.html">Feedback</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- PAGE BANNER -->
+<div class="page-banner-photo">
+  <div class="bt">
+    <h1><i class="fas fa-hotel me-2"></i>Hotels &amp; Accommodation</h1>
+    <p style="opacity:.85;font-size:1rem;">Find the perfect stay - from luxury lodges to budget-friendly guesthouses.</p>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<section style="padding:3rem 0;">
+  <div class="container-fluid px-4">
+    <div class="row g-4">
+      <!-- SIDEBAR -->
+      <div class="col-lg-3">
+        <div class="sidebar-filter sticky-top" style="top:80px;">
+          <h6><i class="fas fa-sliders-h me-2"></i>Filter Results</h6>
+          <hr>
+          <div class="mb-3">
+            <h6>Location</h6>
+            <div class="form-check"><input class="form-check-input" type="checkbox" id="loc1" checked><label class="form-check-label" for="loc1">Gaborone</label></div>
+            <div class="form-check"><input class="form-check-input" type="checkbox" id="loc2"><label class="form-check-label" for="loc2">Maun</label></div>
+            <div class="form-check"><input class="form-check-input" type="checkbox" id="loc3"><label class="form-check-label" for="loc3">Francistown</label></div>
+            <div class="form-check"><input class="form-check-input" type="checkbox" id="loc4"><label class="form-check-label" for="loc4">Kasane</label></div>
+            <div class="form-check"><input class="form-check-input" type="checkbox" id="loc5"><label class="form-check-label" for="loc5">Palapye</label></div>
+          </div>
+          <hr>
+          <div class="mb-3">
+            <h6>Star Rating</h6>
+            <div class="form-check"><input class="form-check-input" type="checkbox" id="s5"><label class="form-check-label" for="s5">⭐⭐⭐⭐⭐ 5 Star</label></div>
+            <div class="form-check"><input class="form-check-input" type="checkbox" id="s4"><label class="form-check-label" for="s4">⭐⭐⭐⭐ 4 Star</label></div>
+            <div class="form-check"><input class="form-check-input" type="checkbox" id="s3"><label class="form-check-label" for="s3">⭐⭐⭐ 3 Star</label></div>
+            <div class="form-check"><input class="form-check-input" type="checkbox" id="s2"><label class="form-check-label" for="s2">⭐⭐ Budget</label></div>
+          </div>
+          <hr>
+          <div class="mb-3">
+            <h6>Max Price (BWP / night)</h6>
+            <input type="range" class="form-range price-range" id="priceRange" min="200" max="5000" value="2500" oninput="document.getElementById('priceVal').textContent='P '+this.value">
+            <div style="font-size:.85rem;color:var(--text-muted);">Up to: <strong id="priceVal">P 2500</strong></div>
+          </div>
+          <button class="btn-primary-custom w-100 mt-2" onclick="filterCards()">Apply Filters</button>
+        </div>
+      </div>
+
+      <!-- LISTINGS -->
+      <div class="col-lg-9">
+        <!-- Search -->
+        <div class="search-bar">
+          <i class="fas fa-search" style="color:var(--text-muted);"></i>
+          <input type="text" id="hotelSearch" placeholder="Search hotels by name or location..." oninput="filterCards()">
+          <button onclick="filterCards()">Search</button>
+        </div>
+        <!-- Filter tabs -->
+        <div class="filter-tabs">
+          <div class="filter-tab active" onclick="setTab(this,'all')">All</div>
+          <div class="filter-tab" onclick="setTab(this,'luxury')">Luxury</div>
+          <div class="filter-tab" onclick="setTab(this,'midrange')">Mid-Range</div>
+          <div class="filter-tab" onclick="setTab(this,'budget')">Budget</div>
+          <div class="filter-tab" onclick="setTab(this,'lodge')">Safari Lodge</div>
+        </div>
+        <!-- Cards Grid -->
+        <div class="row g-3" id="hotelGrid">
+          <!-- cards injected by JS -->
+        </div>
+        <button class="view-more-btn" id="viewMoreBtn" onclick="loadMore()">View More <i class="fas fa-chevron-down ms-1"></i></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DETAIL OVERLAY -->
+<div class="detail-overlay" id="detailOverlay">
+  <div class="detail-box" style="position:relative;">
+    <button class="btn-close-overlay" onclick="closeOverlay()">✕</button>
+    <img id="detailImg" src="" alt="">
+    <div class="detail-body">
+      <span class="card-badge" id="detailBadge"></span>
+      <div class="detail-title" id="detailTitle"></div>
+      <div class="stars" id="detailStars"></div>
+      <p style="color:var(--text-muted);font-size:.9rem;" id="detailDesc"></p>
+      <div class="row g-2 mt-2" id="detailMeta"></div>
+      <div class="d-flex gap-2 mt-3">
+        <button class="btn-accent" onclick="closeOverlay()"><i class="fas fa-calendar-check me-1"></i>Make Reservation</button>
+        <button class="btn-outline-primary-custom" onclick="closeOverlay()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-md-4">
+        <h5>BotsNav</h5>
+        <p style="font-size:.88rem;opacity:.7;">Your premier digital guide to Botswana's finest hotels, dining, sports, and shopping.</p>
+      </div>
+      <div class="col-md-4">
+        <h5>Quick Links</h5>
+        <a href="index.html">Home</a><a href="dining.html">Dining</a><a href="sports.html">Sports</a><a href="contact.html">Contact</a>
+      </div>
+      <div class="col-md-4">
+        <h5>Contact</h5>
+        <p style="font-size:.88rem;opacity:.7;"><i class="fas fa-envelope me-2" style="color:var(--accent);"></i>info@botsnav.co.bw</p>
+        <p style="font-size:.88rem;opacity:.7;"><i class="fas fa-phone me-2" style="color:var(--accent);"></i>+267 7123 4567</p>
+      </div>
+    </div>
+    <hr class="footer-divider">
+    <div class="footer-bottom">© 2025 BotsNav. All rights reserved.</div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+const hotels = [
+  { name:"Grand Palm Hotel",       loc:"Gaborone",   cat:"luxury",   stars:5, price:3200, desc:"Botswana's premier five-star hotel offering world-class amenities, a casino, spa, and multiple restaurants within the heart of Gaborone.", img:"dinepe/grandpalm.png", amenities:["Free WiFi","Pool","Gym","Spa","Casino"] },
+  { name:"Chobe Safari Lodge",     loc:"Kasane",     cat:"lodge",    stars:5, price:4800, desc:"Nestled beside the Chobe River, this iconic safari lodge offers unparalleled wildlife views and guided game drives into Chobe National Park.", img:"dinepe/chobe.png", amenities:["Game Drives","River Cruises","Pool","Restaurant","Bar"] },
+  { name:"Avani Gaborone",         loc:"Gaborone",   cat:"luxury",   stars:4, price:2100, desc:"Modern four-star hotel in central Gaborone with conference facilities, rooftop pool, and contemporary dining options.", img:"dinepe/avani.png", amenities:["Free WiFi","Pool","Conference Rooms","Restaurant"] },
+  { name:"Audi Camp Lodge",        loc:"Maun",       cat:"lodge",    stars:3, price:950,  desc:"A beloved Maun institution offering comfortable chalets and camping near the Okavango Delta gateway.", img:"dinepe/audi.png", amenities:["Camping","Pool","Bar","Safari Booking"] },
+  { name:"Cresta Marakanelo",      loc:"Gaborone",   cat:"midrange", stars:4, price:1500, desc:"Business-friendly four-star hotel centrally located, ideal for corporate travellers with modern rooms and meeting facilities.", img:"dinepe/marakanelo.png", amenities:["Free WiFi","Conference","Restaurant","Pool"] },
+  { name:"Gibb's Farm Francistown",loc:"Francistown",cat:"midrange", stars:3, price:880,  desc:"Comfortable mid-range accommodation in Botswana's second-largest city, with easy access to the city centre.", img:"dinepe/exterior.jpg", amenities:["Free WiFi","Parking","Restaurant","Bar"] },
+  { name:"Elephant Sands Lodge",   loc:"Nata",       cat:"lodge",    stars:4, price:2600, desc:"Famous for its waterhole where wild elephants drink just metres from the lodge - a truly unforgettable bush experience.", img:"dinepe/Chobe-Safari-Lodge-Intro.jpg", amenities:["Wildlife Viewing","Pool","Camping","Bar"] },
+  { name:"Corner View Guesthouse", loc:"Palapye",    cat:"budget",   stars:2, price:420,  desc:"Clean, affordable accommodation along the A1 highway, perfect for travellers passing through the midlands.", img:"dinepe/rooftop.png", amenities:["Parking","Breakfast Included","WiFi"] },
+  { name:"Room50Two",              loc:"Gaborone",   cat:"luxury",   stars:5, price:3800, desc:"International five-star brand offering premium rooms, an infinity pool, fitness centre, and fine dining in Gaborone's CBD.", img:"dinepe/ROOM50two.png", amenities:["Infinity Pool","Gym","Spa","Fine Dining","Bar"] },
+  { name:"Planet Baobab",          loc:"Gweta",      cat:"lodge",    stars:3, price:1100, desc:"A quirky and colourful desert escape near the Makgadikgadi Pans, decorated with local art and offering quad biking and quad tours.", img:"dinepe/view.png", amenities:["Quad Biking","Pool","Bar","Cultural Tours"] },
+  { name:"Maun Rest Camp",         loc:"Maun",       cat:"budget",   stars:2, price:350,  desc:"Budget-friendly rest camp ideal for backpackers and independent travellers heading to the Okavango Delta.", img:"dinepe/maun rest.png", amenities:["Camping","Self-Catering","Parking"] },
+  { name:"Francistown Hotel",      loc:"Francistown",cat:"midrange", stars:3, price:750,  desc:"Historic hotel in the heart of Francistown, offering comfortable rooms and traditional Botswana hospitality.", img:"dinepe/LODGE.png", amenities:["Free WiFi","Restaurant","Bar","Parking"] },
+];
+
+let activeTab = 'all';
+let visibleCount = 6;
+
+function starsHTML(n){ return '⭐'.repeat(n); }
+
+function renderCards(data) {
+  const grid = document.getElementById('hotelGrid');
+  grid.innerHTML = '';
+  const slice = data.slice(0, visibleCount);
+  slice.forEach(h => {
+    const col = document.createElement('div');
+    col.className = 'col-md-6 col-xl-4';
+    col.innerHTML = `
+      <div class="listing-card" onclick="openDetail(${hotels.indexOf(h)})">
+        <img src="${h.img}" alt="${h.name}" loading="lazy">
+        <div class="lc-body">
+          <div class="card-badge">${h.cat.charAt(0).toUpperCase()+h.cat.slice(1)}</div>
+          <div class="lc-title">${h.name}</div>
+          <div class="lc-sub"><i class="fas fa-map-marker-alt me-1"></i>${h.loc}</div>
+          <div class="stars">${starsHTML(h.stars)}</div>
+          <div style="font-weight:700;color:var(--primary);">P ${h.price.toLocaleString()} <span style="font-weight:400;font-size:.8rem;color:var(--text-muted);">/ night</span></div>
+        </div>
+      </div>`;
+    grid.appendChild(col);
+  });
+  document.getElementById('viewMoreBtn').style.display = data.length > visibleCount ? 'block' : 'none';
+}
+
+function getFiltered() {
+  const q = document.getElementById('hotelSearch').value.toLowerCase();
+  return hotels.filter(h =>
+    (activeTab === 'all' || h.cat === activeTab) &&
+    (h.name.toLowerCase().includes(q) || h.loc.toLowerCase().includes(q))
+  );
+}
+function filterCards() { visibleCount = 6; renderCards(getFiltered()); }
+function loadMore() { visibleCount += 6; renderCards(getFiltered()); }
+function setTab(el, tab) {
+  document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active'); activeTab = tab; filterCards();
+}
+function openDetail(i) {
+  const h = hotels[i];
+  document.getElementById('detailImg').src = h.img;
+  document.getElementById('detailTitle').textContent = h.name;
+  document.getElementById('detailBadge').textContent = h.cat.charAt(0).toUpperCase()+h.cat.slice(1);
+  document.getElementById('detailStars').textContent = starsHTML(h.stars) + ` (${h.stars}.0)`;
+  document.getElementById('detailDesc').textContent = h.desc;
+  document.getElementById('detailMeta').innerHTML = `
+    <div class="col-6"><strong>Location:</strong> ${h.loc}</div>
+    <div class="col-6"><strong>Price:</strong> P ${h.price.toLocaleString()}/night</div>
+    <div class="col-12 mt-1"><strong>Amenities:</strong> ${h.amenities.map(a=>`<span class="badge-blue ms-1">${a}</span>`).join('')}</div>`;
+  document.getElementById('detailOverlay').classList.add('show');
+}
+function closeOverlay() { document.getElementById('detailOverlay').classList.remove('show'); }
+document.getElementById('detailOverlay').addEventListener('click', e => { if(e.target === e.currentTarget) closeOverlay(); });
+
+renderCards(hotels);
+</script>
+</body>
+</html>

@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BotsNav - Discover Botswana's Most Iconic Brands</title>
+  <meta name="description" content="BotsNav is your ultimate guide to the best hotels, dining, sports, and shopping in Botswana.">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* --HERO -- */
+    .hero { position:relative; height:92vh; min-height:580px; overflow:hidden; display:flex; align-items:center; justify-content:center; }
+    .hero-slide { position:absolute; inset:0; background-size:cover; background-position:center; opacity:0; transition:opacity 1.2s ease; }
+    .hero-slide.active { opacity:1; }
+    .hero-overlay { position:absolute; inset:0; background:linear-gradient(to bottom, rgba(0,0,0,.3) 0%, rgba(11,61,107,.65) 100%); }
+    .hero-content { position:relative; z-index:2; text-align:center; color:#fff; padding:2rem; max-width:860px; }
+    .hero-content .tagline { letter-spacing:4px; font-size:.85rem; text-transform:uppercase; opacity:.85; margin-bottom:1rem; }
+    .hero-content h1 { font-family:'Playfair Display',serif; font-size:clamp(2.2rem,5.5vw,4rem); line-height:1.12; margin-bottom:1.2rem; text-shadow:0 2px 14px rgba(0,0,0,.45); }
+    .hero-content p { font-size:1.1rem; opacity:.88; margin-bottom:2rem; }
+    .hero-dots { position:absolute; bottom:2rem; left:50%; transform:translateX(-50%); display:flex; gap:.5rem; z-index:3; }
+    .hero-dot { width:10px; height:10px; border-radius:50%; background:rgba(255,255,255,.45); cursor:pointer; transition:.3s; border:none; }
+    .hero-dot.active { background:var(--accent); transform:scale(1.2); }
+
+    /* -- BROWSER CARDS -- */
+    .browser-section { padding:3.5rem 0; background:#fff; }
+    .browser-card { position:relative; border-radius:14px; overflow:hidden; height:240px; display:block; text-decoration:none; box-shadow:0 6px 24px rgba(0,0,0,.12); transition:transform .3s,box-shadow .3s; }
+    .browser-card:hover { transform:translateY(-7px); box-shadow:0 14px 36px rgba(0,0,0,.2); }
+    .browser-card img { width:100%; height:100%; object-fit:cover; transition:transform .5s; }
+    .browser-card:hover img { transform:scale(1.07); }
+    .browser-card-overlay { position:absolute; inset:0; background:linear-gradient(to top,rgba(11,61,107,.82) 0%,rgba(0,0,0,.05) 60%); display:flex; flex-direction:column; align-items:center; justify-content:flex-end; padding:1.4rem 1rem; }
+    .browser-card-overlay i { font-size:1.9rem; color:var(--accent); margin-bottom:.45rem; }
+    .browser-card-overlay span { color:#fff; font-weight:700; font-size:1.05rem; letter-spacing:.5px; }
+
+    /* -- ABOUT STRIP -- */
+    .about-strip { background:var(--primary); color:#fff; padding:0; overflow:hidden; }
+    .about-strip .about-text { padding:4rem 3rem 4rem 2rem; }
+    .about-strip .about-img { background:url('dinepe/community.jpg') center/cover no-repeat; min-height:420px; }
+    .about-stat { text-align:center; padding:1.2rem .5rem; border-right:1px solid rgba(255,255,255,.18); }
+    .about-stat:last-child { border-right:none; }
+    .about-stat .num { font-size:2.4rem; font-weight:800; color:var(--accent); display:block; }
+    .about-stat .lbl { font-size:.82rem; opacity:.78; }
+
+    /* -- MISSION / VISION -- */
+    .mv-section { padding:5rem 0; background:#f4f6f9; }
+    .mv-card { background:#fff; border-radius:14px; padding:2.2rem; box-shadow:0 4px 22px rgba(0,0,0,.08); border-top:4px solid var(--accent); height:100%; }
+    .mv-card.vision { border-top-color:var(--green); }
+    .mv-card i { font-size:2.4rem; color:var(--accent); margin-bottom:1rem; display:block; }
+    .mv-card.vision i { color:var(--green); }
+
+    /* -- GOALS -- */
+    .goals-section { padding:4.5rem 0; background:#fff; }
+    .goal-card { background:#f4f6f9; border-radius:14px; padding:1.8rem; border-left:4px solid var(--green); transition:all .3s; text-align:center; height:100%; }
+    .goal-card:hover { background:var(--primary); color:#fff; border-left-color:var(--accent); transform:translateY(-4px); }
+    .goal-card:hover p { color:rgba(255,255,255,.8); }
+    .goal-card i { font-size:2rem; color:var(--green); margin-bottom:.8rem; }
+    .goal-card:hover i { color:var(--accent); }
+
+    /* -- FOOTER -- */
+    footer { background:#111827; color:rgba(255,255,255,.8); padding:3.5rem 1rem 1.5rem; }
+    footer h5 { font-family:'Playfair Display',serif; color:var(--accent); margin-bottom:1.1rem; font-size:1.05rem; }
+    footer a { color:rgba(255,255,255,.6); text-decoration:none; font-size:.87rem; display:block; margin-bottom:.45rem; transition:color .2s; }
+    footer a:hover { color:var(--accent); }
+    .footer-bottom { text-align:center; font-size:.8rem; opacity:.55; margin-top:1.5rem; }
+    .social-icon { display:inline-flex; width:36px; height:36px; border-radius:50%; background:rgba(255,255,255,.1); align-items:center; justify-content:center; color:#fff; margin-right:.4rem; transition:.3s; text-decoration:none; }
+    .social-icon:hover { background:var(--accent); color:#111; }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg sticky-top" style="background:#0b3d6b;padding:.4rem 1.5rem;box-shadow:0 2px 16px rgba(0,0,0,.22);">
+  <div class="container-xl">
+    <a class="navbar-brand" href="index.html">
+      <img src="dinepe/logo.png" alt="BotsNav Logo" style="height:130px;width:auto;object-fit:contain;filter:drop-shadow(1px 1px 0 #fff) drop-shadow(-1px -1px 0 #fff) drop-shadow(1px -1px 0 #fff) drop-shadow(-1px 1px 0 #fff);">
+    </a>
+    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+      <span style="color:#fff;font-size:1.4rem;"><i class="fas fa-bars"></i></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navMenu">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="hotels.html">Hotels</a></li>
+        <li class="nav-item"><a class="nav-link" href="dining.html">Dining</a></li>
+        <li class="nav-item"><a class="nav-link" href="sports.html">Sports</a></li>
+        <li class="nav-item"><a class="nav-link" href="shopping.html">Shopping</a></li>
+        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+        <li class="nav-item"><a class="nav-link" href="feedback.html">Feedback</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!--  HERO BANNER -->
+<section class="hero">
+  <div class="hero-slide active" style="background-image:url('dinepe/okavangisto.png')"></div>
+  <div class="hero-slide"       style="background-image:url('dinepe/marakanelo.png')"></div>
+  <div class="hero-slide"       style="background-image:url('dinepe/okavango.png')"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <p class="tagline">Welcome to Botswana</p>
+    <h1>Discover Botswana's<br>Most Iconic Brands</h1>
+    <p>Your premier guide to hotels, dining, sports &amp; shopping across the nation.</p>
+    <a href="hotels.html" style="background:#e8a020;color:#111;font-weight:700;border:none;padding:.9rem 2.4rem;border-radius:50px;font-size:1rem;text-decoration:none;display:inline-block;transition:.3s;box-shadow:0 4px 18px rgba(232,160,32,.4);margin-right:.8rem;">Explore Now</a>
+    <a href="#about" style="background:transparent;border:2px solid #fff;color:#fff;font-weight:600;padding:.85rem 2rem;border-radius:50px;font-size:1rem;text-decoration:none;display:inline-block;transition:.3s;">Learn More</a>
+  </div>
+  <div class="hero-dots" id="heroDots"></div>
+</section>
+
+<!--  BROWSER / SERVICE CARDS -->
+<section class="browser-section">
+  <div class="container-xl">
+    <div class="text-center mb-4">
+      <div style="width:55px;height:4px;background:#e8a020;border-radius:4px;margin:0 auto .9rem;"></div>
+      <h2 style="font-family:'Playfair Display',serif;font-size:2rem;color:#0b3d6b;">Browse Services</h2>
+      <p style="color:#6b7280;font-size:.95rem;">Find the best of Botswana across all categories</p>
+    </div>
+    <div class="row g-3">
+      <div class="col-6 col-md-3">
+        <a href="hotels.html" class="browser-card">
+          <img src="dinepe/room50two.png" alt="Hotels in Botswana">
+          <div class="browser-card-overlay"><i class="fas fa-hotel"></i><span>Hotels</span></div>
+        </a>
+      </div>
+      <div class="col-6 col-md-3">
+        <a href="dining.html" class="browser-card">
+          <img src="dinepe/dining.png" alt="Dining in Botswana">
+          <div class="browser-card-overlay"><i class="fas fa-utensils"></i><span>Dining</span></div>
+        </a>
+      </div>
+      <div class="col-6 col-md-3">
+        <a href="sports.html" class="browser-card">
+          <img src="dinepe/cricket.png" alt="Sports in Botswana">
+          <div class="browser-card-overlay"><i class="fas fa-running"></i><span>Sports</span></div>
+        </a>
+      </div>
+      <div class="col-6 col-md-3">
+        <a href="shopping.html" class="browser-card">
+          <img src="dinepe/BotswanaCraft.png" alt="Shopping in Botswana">
+          <div class="browser-card-overlay"><i class="fas fa-shopping-bag"></i><span>Shopping</span></div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ③ ABOUT STRIP - text LEFT, image RIGHT -->
+<section class="about-strip" id="about">
+  <div class="container-xl px-0">
+    <div class="row g-0">
+      <div class="col-lg-6 about-text">
+        <div style="width:55px;height:4px;background:#e8a020;border-radius:4px;margin-bottom:1.2rem;"></div>
+        <h2 style="font-family:'Playfair Display',serif;font-size:2rem;margin-bottom:1rem;">About BotsNav</h2>
+        <p style="opacity:.85;line-height:1.8;margin-bottom:1.5rem;">BotsNav is Botswana's premier digital navigation platform, designed to help both locals and visitors discover the very best the country has to offer - from luxurious lodges and fine dining to adrenaline-pumping sports and world-class shopping.</p>
+        <div class="row g-0 mb-2">
+          <div class="col-4 about-stat"><span class="num">200+</span><span class="lbl">Listed Hotels</span></div>
+          <div class="col-4 about-stat"><span class="num">150+</span><span class="lbl">Restaurants</span></div>
+          <div class="col-4 about-stat"><span class="num">50+</span><span class="lbl">Sports Venues</span></div>
+        </div>
+        <a href="contact.html" style="background:#e8a020;color:#111;font-weight:700;border:none;padding:.8rem 2rem;border-radius:50px;font-size:.95rem;text-decoration:none;display:inline-block;margin-top:1.2rem;">Get in Touch</a>
+      </div>
+      <div class="col-lg-6 about-img"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ④ MISSION & VISION -->
+<section class="mv-section">
+  <div class="container-xl">
+    <div class="text-center mb-5">
+      <div style="width:55px;height:4px;background:#e8a020;border-radius:4px;margin:0 auto .9rem;"></div>
+      <h2 style="font-family:'Playfair Display',serif;font-size:2rem;color:#0b3d6b;">Our Purpose</h2>
+      <p style="color:#6b7280;">What drives us every single day</p>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-6">
+        <div class="mv-card">
+          <i class="fas fa-bullseye"></i>
+          <h4 style="font-weight:700;color:#0b3d6b;margin-bottom:.8rem;">Our Mission</h4>
+          <p style="color:#6b7280;line-height:1.8;">To connect people with the finest experiences Botswana has to offer, by providing an accurate, up-to-date, and easy-to-use digital directory of businesses, events, and attractions across the country.</p>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="mv-card vision">
+          <i class="fas fa-eye" style="color:#2e7d5e;"></i>
+          <h4 style="font-weight:700;color:#0b3d6b;margin-bottom:.8rem;">Our Vision</h4>
+          <p style="color:#6b7280;line-height:1.8;">To become the go-to digital gateway for discovering Botswana, fostering tourism, supporting local businesses, and celebrating the unique culture and heritage of this remarkable nation.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!--  GOALS GRID -->
+<section class="goals-section">
+  <div class="container-xl">
+    <div class="text-center mb-5">
+      <div style="width:55px;height:4px;background:#e8a020;border-radius:4px;margin:0 auto .9rem;"></div>
+      <h2 style="font-family:'Playfair Display',serif;font-size:2rem;color:#0b3d6b;">Our Goals</h2>
+      <p style="color:#6b7280;">The milestones we aim to achieve</p>
+    </div>
+    <div class="row g-3">
+      <div class="col-sm-6 col-lg-3"><div class="goal-card"><i class="fas fa-map-marked-alt"></i><h6 style="font-weight:700;margin-bottom:.4rem;">Nationwide Coverage</h6><p style="font-size:.84rem;color:#6b7280;margin:0;">List businesses from every district in Botswana.</p></div></div>
+      <div class="col-sm-6 col-lg-3"><div class="goal-card"><i class="fas fa-star"></i><h6 style="font-weight:700;margin-bottom:.4rem;">Trusted Reviews</h6><p style="font-size:.84rem;color:#6b7280;margin:0;">Empower users with honest, verified feedback.</p></div></div>
+      <div class="col-sm-6 col-lg-3"><div class="goal-card"><i class="fas fa-store"></i><h6 style="font-weight:700;margin-bottom:.4rem;">Support Local Business</h6><p style="font-size:.84rem;color:#6b7280;margin:0;">Give local brands a powerful digital presence.</p></div></div>
+      <div class="col-sm-6 col-lg-3"><div class="goal-card"><i class="fas fa-globe-africa"></i><h6 style="font-weight:700;margin-bottom:.4rem;">Boost Tourism</h6><p style="font-size:.84rem;color:#6b7280;margin:0;">Help visitors plan unforgettable Botswana trips.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ⑥ FOOTER -->
+<footer>
+  <div class="container-xl">
+    <div class="row g-4">
+      <div class="col-md-4">
+        <h5>BotsNav</h5>
+        <p style="font-size:.87rem;opacity:.7;line-height:1.75;">Your premier digital guide to Botswana's finest hotels, dining, sports, and shopping destinations.</p>
+        <div class="mt-3">
+          <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <h5>Explore</h5>
+        <a href="hotels.html">Hotels</a>
+        <a href="dining.html">Dining</a>
+        <a href="sports.html">Sports</a>
+        <a href="shopping.html">Shopping</a>
+      </div>
+      <div class="col-md-2">
+        <h5>Company</h5>
+        <a href="#about">About Us</a>
+        <a href="contact.html">Contact</a>
+        <a href="feedback.html">Feedback</a>
+      </div>
+      <div class="col-md-4">
+        <h5>Contact Us</h5>
+        <p style="font-size:.87rem;opacity:.7;"><i class="fas fa-map-marker-alt me-2" style="color:#e8a020;"></i>Plot 1234, Main Mall, Gaborone, Botswana</p>
+        <p style="font-size:.87rem;opacity:.7;"><i class="fas fa-phone me-2" style="color:#e8a020;"></i>+267 7123 4567</p>
+        <p style="font-size:.87rem;opacity:.7;"><i class="fas fa-envelope me-2" style="color:#e8a020;"></i>info@botsnav.co.bw</p>
+      </div>
+    </div>
+    <hr style="border-color:rgba(255,255,255,.12);margin:2rem 0 1rem;">
+    <div class="footer-bottom">© 2025 BotsNav. All rights reserved. | Designed for Botswana Tourism.</div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  const slides = document.querySelectorAll('.hero-slide');
+  const dotsWrap = document.getElementById('heroDots');
+  let cur = 0;
+  slides.forEach((_, i) => {
+    const b = document.createElement('button');
+    b.className = 'hero-dot' + (i===0?' active':'');
+    b.addEventListener('click', () => goTo(i));
+    dotsWrap.appendChild(b);
+  });
+  function goTo(n) {
+    slides[cur].classList.remove('active');
+    dotsWrap.children[cur].classList.remove('active');
+    cur = n;
+    slides[cur].classList.add('active');
+    dotsWrap.children[cur].classList.add('active');
+  }
+  setInterval(() => goTo((cur+1) % slides.length), 5000);
+</script>
+
+<!-- ACCESSIBILITY WIDGET -->
+<div id="a11y-widget">
+  <div id="a11y-menu">
+    <h6>Accessibility Tools</h6>
+    <button class="a11y-btn" onclick="toggleA11y('a11y-high-contrast', this)"><i class="fas fa-adjust"></i> High Contrast</button>
+    <button class="a11y-btn" onclick="toggleA11y('a11y-large-text', this)"><i class="fas fa-text-height"></i> Larger Text</button>
+    <button class="a11y-btn" onclick="toggleA11y('a11y-highlight-links', this)"><i class="fas fa-link"></i> Highlight Links</button>
+  </div>
+  <button id="a11y-toggle" title="Accessibility Options"><i class="fas fa-universal-access"></i></button>
+</div>
+
+<!-- BACK TO TOP BUTTON -->
+<button id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" title="Back to Top">
+  <i class="fas fa-chevron-up"></i>
+</button>
+
+<script>
+  // Accessibility Widget Logic
+  document.getElementById('a11y-toggle').addEventListener('click', function() {
+    document.getElementById('a11y-menu').classList.toggle('show');
+  });
+
+  function toggleA11y(className, btn) {
+    document.body.classList.toggle(className);
+    btn.classList.toggle('active');
+    
+    // Save preference to localStorage so it persists across pages
+    if(document.body.classList.contains(className)) {
+      localStorage.setItem(className, 'true');
+    } else {
+      localStorage.removeItem(className);
+    }
+  }
+
+  // On page load, check localStorage for any saved accessibility preferences and apply them
+  window.addEventListener('DOMContentLoaded', () => {
+    ['a11y-high-contrast', 'a11y-large-text', 'a11y-highlight-links'].forEach(cls => {
+      if(localStorage.getItem(cls) === 'true') {
+        document.body.classList.add(cls);
+        // Find the button and set it to active
+        const buttons = document.querySelectorAll('.a11y-btn');
+        buttons.forEach(btn => {
+          if(btn.getAttribute('onclick').includes(cls)) {
+            btn.classList.add('active');
+          }
+        });
+      }
+    });
+  });
+
+  // Back to Top Button Logic
+  window.addEventListener('scroll', function() {
+    const btn = document.getElementById('back-to-top');
+    if (window.scrollY > 300) {
+      btn.classList.add('visible');
+    } else {
+      btn.classList.remove('visible');
+    }
+  });
+</script>
+</body>
+</html>

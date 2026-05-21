@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dining - BotsNav</title>
+  <meta name="description" content="Discover the best restaurants and dining experiences in Botswana.">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .page-banner-photo{position:relative;height:300px;overflow:hidden;display:flex;align-items:center;justify-content:center;background:url('dinepe/dining.png') center/cover no-repeat;}
+    .page-banner-photo::before{content:'';position:absolute;inset:0;background:rgba(11,61,107,.65);}
+    .page-banner-photo .bt{position:relative;z-index:2;text-align:center;color:#fff;}
+    .page-banner-photo h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3rem);margin-bottom:.4rem;}
+  </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg sticky-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="index.html"><img src="dinepe/logo.png" alt="BotsNav Logo" style="height:130px;width:auto;object-fit:contain;filter:drop-shadow(1px 1px 0 #fff) drop-shadow(-1px -1px 0 #fff) drop-shadow(1px -1px 0 #fff) drop-shadow(-1px 1px 0 #fff);"></a>
+    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+      <span style="color:#fff;font-size:1.4rem;"><i class="fas fa-bars"></i></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navMenu">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="hotels.html">Hotels</a></li>
+        <li class="nav-item"><a class="nav-link active" href="dining.html">Dining</a></li>
+        <li class="nav-item"><a class="nav-link" href="sports.html">Sports</a></li>
+        <li class="nav-item"><a class="nav-link" href="shopping.html">Shopping</a></li>
+        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+        <li class="nav-item"><a class="nav-link" href="feedback.html">Feedback</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="page-banner-photo">
+  <div class="bt">
+    <h1><i class="fas fa-utensils me-2"></i>Dining &amp; Restaurants</h1>
+    <p style="opacity:.85;font-size:1rem;">From authentic Setswana cuisine to international fine dining.</p>
+  </div>
+</div>
+
+<section style="padding:3rem 0;">
+  <div class="container">
+    <div class="search-bar">
+      <i class="fas fa-search" style="color:var(--text-muted);"></i>
+      <input type="text" id="dineSearch" placeholder="Search restaurants by name, cuisine or location..." oninput="filterCards()">
+      <button onclick="filterCards()">Search</button>
+    </div>
+    <div class="filter-tabs">
+      <div class="filter-tab active" onclick="setTab(this,'all')">All</div>
+      <div class="filter-tab" onclick="setTab(this,'finedining')">Fine Dining</div>
+      <div class="filter-tab" onclick="setTab(this,'traditional')">Traditional</div>
+      <div class="filter-tab" onclick="setTab(this,'cafe')">Cafés &amp; Bakeries</div>
+      <div class="filter-tab" onclick="setTab(this,'fastfood')">Fast Food</div>
+      <div class="filter-tab" onclick="setTab(this,'grill')">Grills &amp; BBQ</div>
+    </div>
+    <div class="row g-3" id="dineGrid"></div>
+    <button class="view-more-btn" id="viewMoreBtn" onclick="loadMore()">View More <i class="fas fa-chevron-down ms-1"></i></button>
+  </div>
+</section>
+
+<!-- DETAIL OVERLAY -->
+<div class="detail-overlay" id="detailOverlay">
+  <div class="detail-box" style="position:relative;">
+    <button class="btn-close-overlay" onclick="closeOverlay()">✕</button>
+    <img id="detailImg" src="" alt="">
+    <div class="detail-body">
+      <span class="card-badge" id="detailBadge"></span>
+      <div class="detail-title" id="detailTitle"></div>
+      <div class="stars" id="detailStars"></div>
+      <p style="color:var(--text-muted);font-size:.9rem;" id="detailDesc"></p>
+      <div class="row g-2 mt-2" id="detailMeta"></div>
+      <div class="d-flex gap-2 mt-3">
+        <button class="btn-accent" onclick="closeOverlay()"><i class="fas fa-phone me-1"></i>Reserve a Table</button>
+        <button class="btn-outline-primary-custom" onclick="closeOverlay()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-md-4"><h5>BotsNav</h5><p style="font-size:.88rem;opacity:.7;">Your premier guide to Botswana.</p></div>
+      <div class="col-md-4"><h5>Quick Links</h5><a href="index.html">Home</a><a href="hotels.html">Hotels</a><a href="sports.html">Sports</a><a href="contact.html">Contact</a></div>
+      <div class="col-md-4"><h5>Contact</h5><p style="font-size:.88rem;opacity:.7;"><i class="fas fa-envelope me-2" style="color:var(--accent);"></i>info@botsnav.co.bw</p></div>
+    </div>
+    <hr class="footer-divider">
+    <div class="footer-bottom">© 2025 BotsNav. All rights reserved.</div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+const restaurants = [
+  { name:"Debonairs pizza",       loc:"Gaborone",   cat:"finedining",  stars:5, cuisine:"Pizza",      price:"P 80-150",  desc:"Popular pizza franchise offering delicious, hearty pizzas for quick meals or relaxing dine-ins with friends and family.", img:"dinepe/debonairs.jpg", hours:"10am - 10pm" },
+  { name:"Kgotla Restaurant",     loc:"Gaborone",   cat:"traditional", stars:4, cuisine:"Setswana",   price:"P 80-180",  desc:"Authentic Setswana dining serving seswaa, samp, bogobe and morogo in a cosy, culturally decorated environment.", img:"dinepe/dijo.jpeg", hours:"7am - 9pm" },
+  { name:"Bull & Bush",           loc:"Gaborone",   cat:"grill",       stars:4, cuisine:"Grill/Pub",  price:"P 120-280", desc:"Botswana's favourite steakhouse pub, famous for its generous sirloin cuts, craft beer selection, and lively atmosphere.", img:"dinepe/BULL&BUSH.png", hours:"11am - 11pm" },
+  { name:"Delta Café",            loc:"Maun",       cat:"cafe",        stars:4, cuisine:"International",price:"P 60-150", desc:"A relaxed café overlooking the Thamalakane River, popular with tourists, with freshly brewed coffee and all-day breakfasts.", img:"dinepe/dining.jpg", hours:"7am - 6pm" },
+  { name:"Three Dikgosi",         loc:"Gaborone",   cat:"finedining",  stars:5, cuisine:"Fusion",     price:"P 300-600", desc:"Contemporary fusion restaurant in the heart of Gaborone serving innovative African-European cuisine with panoramic city views.", img:"dinepe/BotswanaCraft.png", hours:"6pm - 11pm" },
+  { name:"Nandos Gaborone",       loc:"Gaborone",   cat:"fastfood",    stars:3, cuisine:"Chicken",    price:"P 60-130",  desc:"The legendary flame-grilled peri-peri chicken chain, a Botswana staple with multiple city locations.", img:"dinepe/nandos.png", hours:"10am - 10pm" },
+  { name:"Chobe Marina Lodge",    loc:"Kasane",     cat:"finedining",  stars:5, cuisine:"Continental",price:"P 280-550", desc:"Elegant riverside restaurant serving gourmet continental dishes with spectacular views of elephants crossing the Chobe River.", img:"dinepe/chobe marina.jpg", hours:"7am - 10pm" },
+  { name:"Mug & Bean",            loc:"Gaborone",   cat:"cafe",        stars:4, cuisine:"Cafe",       price:"P 30-90",   desc:"Beloved local cafe serving freshly baked bread, pastries, croissants, and artisan cakes in a bright, welcoming space.", img:"dinepe/mug & bean.jpg", hours:"6am - 5pm" },
+  { name:"Primi Piatti",          loc:"Gaborone",   cat:"finedining",  stars:4, cuisine:"Italian",    price:"P 180-380", desc:"Italian chain restaurant offering wood-fired pizzas, hand-made pasta, risottos and a curated wine list in a stylish setting.", img:"dinepe/porimi.jpg", hours:"12pm - 10pm" },
+  { name:"Braai Masters",         loc:"Francistown",cat:"grill",       stars:3, cuisine:"BBQ",        price:"P 90-200",  desc:"Casual open-air grill restaurant with traditional Botswana braai meats, boerewors, and game meat platters.", img:"dinepe/braai masters.jpg", hours:"12pm - 9pm" },
+];
+
+let activeTab = 'all', visibleCount = 6;
+const starsHTML = n => '⭐'.repeat(n);
+
+function renderCards(data) {
+  const grid = document.getElementById('dineGrid');
+  grid.innerHTML = '';
+  data.slice(0, visibleCount).forEach(r => {
+    const col = document.createElement('div');
+    col.className = 'col-md-6 col-xl-4';
+    col.innerHTML = `<div class="listing-card" onclick="openDetail(${restaurants.indexOf(r)})">
+      <img src="${r.img}" alt="${r.name}" loading="lazy">
+      <div class="lc-body">
+        <div class="card-badge">${r.cuisine}</div>
+        <div class="lc-title">${r.name}</div>
+        <div class="lc-sub"><i class="fas fa-map-marker-alt me-1"></i>${r.loc}</div>
+        <div class="stars">${starsHTML(r.stars)}</div>
+        <div style="font-size:.83rem;color:var(--text-muted);"><i class="fas fa-tag me-1"></i>${r.price}</div>
+      </div></div>`;
+    grid.appendChild(col);
+  });
+  document.getElementById('viewMoreBtn').style.display = data.length > visibleCount ? 'block' : 'none';
+}
+function getFiltered() {
+  const q = document.getElementById('dineSearch').value.toLowerCase();
+  return restaurants.filter(r => (activeTab==='all'||r.cat===activeTab) && (r.name.toLowerCase().includes(q)||r.loc.toLowerCase().includes(q)||r.cuisine.toLowerCase().includes(q)));
+}
+function filterCards() { visibleCount=6; renderCards(getFiltered()); }
+function loadMore() { visibleCount+=6; renderCards(getFiltered()); }
+function setTab(el,tab){ document.querySelectorAll('.filter-tab').forEach(t=>t.classList.remove('active')); el.classList.add('active'); activeTab=tab; filterCards(); }
+function openDetail(i){
+  const r=restaurants[i];
+  document.getElementById('detailImg').src=r.img;
+  document.getElementById('detailTitle').textContent=r.name;
+  document.getElementById('detailBadge').textContent=r.cuisine;
+  document.getElementById('detailStars').textContent=starsHTML(r.stars)+` (${r.stars}.0)`;
+  document.getElementById('detailDesc').textContent=r.desc;
+  document.getElementById('detailMeta').innerHTML=`<div class="col-6"><strong>Location:</strong> ${r.loc}</div><div class="col-6"><strong>Price Range:</strong> ${r.price}</div><div class="col-6 mt-1"><strong>Hours:</strong> ${r.hours}</div>`;
+  document.getElementById('detailOverlay').classList.add('show');
+}
+function closeOverlay(){ document.getElementById('detailOverlay').classList.remove('show'); }
+document.getElementById('detailOverlay').addEventListener('click',e=>{if(e.target===e.currentTarget)closeOverlay();});
+renderCards(restaurants);
+</script>
+</body>
+</html>

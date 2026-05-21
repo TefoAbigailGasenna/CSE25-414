@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sports & Recreation - BotsNav</title>
+  <meta name="description" content="Find sports venues, events and recreational facilities across Botswana.">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .page-banner-photo{position:relative;height:300px;overflow:hidden;display:flex;align-items:center;justify-content:center;background:url('dinepe/Obed_Itani_Chilume_Stadium.jpg') center/cover no-repeat;}
+    .page-banner-photo::before{content:'';position:absolute;inset:0;background:rgba(11,61,107,.65);}
+    .page-banner-photo .bt{position:relative;z-index:2;text-align:center;color:#fff;}
+    .page-banner-photo h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3rem);margin-bottom:.4rem;}
+  </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg sticky-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="index.html"><img src="dinepe/logo.png" alt="BotsNav Logo" style="height:130px;width:auto;object-fit:contain;filter:drop-shadow(1px 1px 0 #fff) drop-shadow(-1px -1px 0 #fff) drop-shadow(1px -1px 0 #fff) drop-shadow(-1px 1px 0 #fff);"></a>
+    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+      <span style="color:#fff;font-size:1.4rem;"><i class="fas fa-bars"></i></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navMenu">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="hotels.html">Hotels</a></li>
+        <li class="nav-item"><a class="nav-link" href="dining.html">Dining</a></li>
+        <li class="nav-item"><a class="nav-link active" href="sports.html">Sports</a></li>
+        <li class="nav-item"><a class="nav-link" href="shopping.html">Shopping</a></li>
+        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+        <li class="nav-item"><a class="nav-link" href="feedback.html">Feedback</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="page-banner-photo">
+  <div class="bt">
+    <h1><i class="fas fa-running me-2"></i>Sports &amp; Recreation</h1>
+    <p style="opacity:.85;font-size:1rem;">Upcoming events, sports facilities and outdoor adventures.</p>
+  </div>
+</div>
+
+<section style="padding:3rem 0;">
+  <div class="container">
+    <!-- Search -->
+    <div class="search-bar">
+      <i class="fas fa-search" style="color:var(--text-muted);"></i>
+      <input type="text" id="sportSearch" placeholder="Search sports, events or venues..." oninput="filterEvents()">
+      <button onclick="filterEvents()">Search</button>
+    </div>
+    <!-- Filter tabs -->
+    <div class="filter-tabs">
+      <div class="filter-tab active" onclick="setTab(this,'all')">All Sports</div>
+      <div class="filter-tab" onclick="setTab(this,'football')">Football</div>
+      <div class="filter-tab" onclick="setTab(this,'golf')">Golf</div>
+      <div class="filter-tab" onclick="setTab(this,'tennis')">Tennis</div>
+      <div class="filter-tab" onclick="setTab(this,'athletics')">Athletics</div>
+      <div class="filter-tab" onclick="setTab(this,'swimming')">Swimming</div>
+      <div class="filter-tab" onclick="setTab(this,'outdoor')">Outdoor</div>
+    </div>
+
+    <!-- EVENTS TABLE -->
+    <div class="mb-4">
+      <div class="divider"></div>
+      <h4 class="section-title mb-3">Upcoming Events</h4>
+      <div class="events-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Event</th><th>Sport</th><th>Venue</th><th>Date</th><th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="eventsBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- FACILITIES CARDS -->
+    <div class="mt-5">
+      <div class="divider"></div>
+      <h4 class="section-title mb-3">Sports Facilities</h4>
+      <div class="row g-3" id="facilGrid"></div>
+      <button class="view-more-btn" id="viewMoreBtn" onclick="loadMore()">View More <i class="fas fa-chevron-down ms-1"></i></button>
+    </div>
+  </div>
+</section>
+
+<!-- DETAIL OVERLAY -->
+<div class="detail-overlay" id="detailOverlay">
+  <div class="detail-box" style="position:relative;">
+    <button class="btn-close-overlay" onclick="closeOverlay()">✕</button>
+    <img id="detailImg" src="" alt="">
+    <div class="detail-body">
+      <span class="card-badge" id="detailBadge"></span>
+      <div class="detail-title" id="detailTitle"></div>
+      <p style="color:var(--text-muted);font-size:.9rem;" id="detailDesc"></p>
+      <div id="detailMeta"></div>
+      <div class="d-flex gap-2 mt-3">
+        <button class="btn-accent" onclick="closeOverlay()"><i class="fas fa-ticket-alt me-1"></i>Book Facility</button>
+        <button class="btn-outline-primary-custom" onclick="closeOverlay()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-md-4"><h5>BotsNav</h5><p style="font-size:.88rem;opacity:.7;">Your premier guide to Botswana.</p></div>
+      <div class="col-md-4"><h5>Quick Links</h5><a href="index.html">Home</a><a href="hotels.html">Hotels</a><a href="dining.html">Dining</a><a href="contact.html">Contact</a></div>
+      <div class="col-md-4"><h5>Contact</h5><p style="font-size:.88rem;opacity:.7;"><i class="fas fa-envelope me-2" style="color:var(--accent);"></i>info@botsnav.co.bw</p></div>
+    </div>
+    <hr class="footer-divider">
+    <div class="footer-bottom">© 2025 BotsNav. All rights reserved.</div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+const events = [
+  { name:"BFL Premier League",          sport:"football",  venue:"National Stadium, Gaborone",  date:"May 18, 2025",  status:"upcoming" },
+  { name:"Debswana Golf Open",           sport:"golf",      venue:"Gaborone Golf Club",          date:"May 24, 2025",  status:"upcoming" },
+  { name:"Botswana Athletics Classic",   sport:"athletics", venue:"Isang Pilane Athletics Arena",date:"Jun 7, 2025",   status:"upcoming" },
+  { name:"BTC Tennis Open",             sport:"tennis",    venue:"National Tennis Centre",      date:"Jun 14, 2025",  status:"upcoming" },
+  { name:"National Swimming Champs",     sport:"swimming",  venue:"Gaborone Aquatic Centre",     date:"Jun 21, 2025",  status:"upcoming" },
+  { name:"COSAFA Cup Qualifier",         sport:"football",  venue:"Francistown Stadium",         date:"Jul 5, 2025",   status:"upcoming" },
+  { name:"Kalahari Challenge Trail Run", sport:"outdoor",   venue:"Kgalagadi, Mabuasehube",      date:"Jul 12, 2025",  status:"upcoming" },
+  { name:"Botswana Basketball League",   sport:"basketball",venue:"University of Botswana Hall", date:"May 20, 2025",  status:"ongoing"  },
+  { name:"Maun Rugby Invitational",      sport:"rugby",     venue:"Maun Sports Complex",         date:"Apr 30, 2025",  status:"past"     },
+];
+
+const facilities = [
+  { name:"National Stadium",          cat:"football",  loc:"Gaborone",    cap:"22,000",  desc:"Botswana's largest stadium, home of the national football team and major athletics events. Fully equipped with a 400m track.",img:"dinepe/botswana-national-stadium-gaborone-botswana-v0-r8tkrqzo5cja1.webp", features:["Football Pitch","400m Track","VIP Boxes","Floodlights"] },
+  { name:"Gaborone Golf Club",         cat:"golf",      loc:"Gaborone",    cap:"18 holes",desc:"A beautiful 18-hole golf course established in 1929, set among indigenous trees with a well-stocked clubhouse and pro shop.",img:"dinepe/Gaborone golf.png", features:["18-Hole Course","Clubhouse","Pro Shop","Driving Range"] },
+  { name:"Gaborone Aquatic Centre",    cat:"swimming",  loc:"Gaborone",    cap:"Olympic", desc:"Olympic-standard swimming complex used for national competitions, training and community recreational swimming.",img:"dinepe/aquatics.jpeg", features:["50m Pool","25m Training Pool","Diving Boards","Gym"] },
+  { name:"National Tennis Centre",     cat:"tennis",    loc:"Gaborone",    cap:"12 courts",desc:"The premier tennis facility in Botswana with 12 courts including clay, hard, and indoor surfaces.",img:"dinepe/tennis.jpg", features:["Clay Courts","Hard Courts","Indoor Courts","Pro Coaching"] },
+  { name:"Francistown Stadium",        cat:"football",  loc:"Francistown", cap:"18,000",  desc:"The main stadium in Francistown hosting BFL matches, COSAFA qualifiers, and regional athletics competitions.",img:"dinepe/Obed_Itani_Chilume_Stadium.jpg", features:["Football Pitch","Stands","Running Track","Floodlights"] },
+  { name:"Maun Sports Complex",        cat:"outdoor",   loc:"Maun",        cap:"Multi",   desc:"A versatile complex in the delta town of Maun featuring rugby, football, netball and cricket facilities.",img:"dinepe/maun.webp", features:["Rugby Field","Cricket Oval","Netball Courts","Parking"] },
+  { name:"Kalahari Safari Run Trail",  cat:"outdoor",   loc:"Kgalagadi",   cap:"Open",    desc:"A stunning desert trail route through the Kgalagadi Transfrontier Park, attracting international trail runners each year.",img:"dinepe/KALAHARI RUN.jpg", features:["21km & 42km Routes","Guided Tours","Water Stations","Camping"] },
+  { name:"UB Multi-Purpose Hall",      cat:"basketball",loc:"Gaborone",    cap:"2,000",   desc:"The University of Botswana's indoor sports hall hosting basketball, volleyball, badminton and indoor football.",img:"dinepe/UB.png", features:["Basketball Courts","Volleyball","Badminton","Changing Rooms"] },
+];
+
+let activeTab='all', visibleCount=6;
+const statusClass = s => s==='upcoming'?'badge-green':s==='ongoing'?'badge-blue':'badge-red';
+
+function renderEvents(data){
+  const body=document.getElementById('eventsBody');
+  body.innerHTML='';
+  const q=document.getElementById('sportSearch').value.toLowerCase();
+  data.filter(e=>(activeTab==='all'||e.sport===activeTab)&&(e.name.toLowerCase().includes(q)||e.venue.toLowerCase().includes(q))).forEach(e=>{
+    body.innerHTML+=`<tr>
+      <td style="font-weight:600">${e.name}</td>
+      <td><span class="event-tag">${e.sport}</span></td>
+      <td>${e.venue}</td><td>${e.date}</td>
+      <td><span class="${statusClass(e.status)}">${e.status}</span></td>
+    </tr>`;
+  });
+}
+function renderFacilities(data){
+  const grid=document.getElementById('facilGrid'); grid.innerHTML='';
+  const q=document.getElementById('sportSearch').value.toLowerCase();
+  const filtered=data.filter(f=>(activeTab==='all'||f.cat===activeTab)&&(f.name.toLowerCase().includes(q)||f.loc.toLowerCase().includes(q)));
+  filtered.slice(0,visibleCount).forEach(f=>{
+    const col=document.createElement('div'); col.className='col-md-6 col-xl-4';
+    col.innerHTML=`<div class="listing-card" onclick="openDetail(${facilities.indexOf(f)})">
+      <img src="${f.img}" alt="${f.name}" loading="lazy">
+      <div class="lc-body">
+        <div class="card-badge">${f.cat}</div>
+        <div class="lc-title">${f.name}</div>
+        <div class="lc-sub"><i class="fas fa-map-marker-alt me-1"></i>${f.loc}</div>
+        <div class="lc-sub mt-1"><i class="fas fa-users me-1"></i>Capacity: ${f.cap}</div>
+      </div></div>`;
+    grid.appendChild(col);
+  });
+  document.getElementById('viewMoreBtn').style.display=filtered.length>visibleCount?'block':'none';
+}
+function filterEvents(){ visibleCount=6; renderEvents(events); renderFacilities(facilities); }
+function loadMore(){ visibleCount+=6; renderFacilities(facilities); }
+function setTab(el,tab){ document.querySelectorAll('.filter-tab').forEach(t=>t.classList.remove('active')); el.classList.add('active'); activeTab=tab; filterEvents(); }
+function openDetail(i){
+  const f=facilities[i];
+  document.getElementById('detailImg').src=f.img;
+  document.getElementById('detailTitle').textContent=f.name;
+  document.getElementById('detailBadge').textContent=f.cat;
+  document.getElementById('detailDesc').textContent=f.desc;
+  document.getElementById('detailMeta').innerHTML=`<p><strong>Location:</strong> ${f.loc} &nbsp;|&nbsp; <strong>Capacity:</strong> ${f.cap}</p><p><strong>Features:</strong> ${f.features.map(x=>`<span class="badge-blue ms-1">${x}</span>`).join('')}</p>`;
+  document.getElementById('detailOverlay').classList.add('show');
+}
+function closeOverlay(){ document.getElementById('detailOverlay').classList.remove('show'); }
+document.getElementById('detailOverlay').addEventListener('click',e=>{if(e.target===e.currentTarget)closeOverlay();});
+renderEvents(events); renderFacilities(facilities);
+</script>
+</body>
+</html>
