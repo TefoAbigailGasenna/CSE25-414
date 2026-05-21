@@ -38,6 +38,5 @@ If you're looking under the hood, here is how the project is organized:
 
 The BotsNav platform is fully hosted and live on **GitHub Pages**. Because it is built with standard web technologies, there is no need to spin up a server, install dependencies, or run a build process. 
 
-👉 **[Click Here to Visit the Live BotsNav Website](YOUR_GITHUB_PAGES_LINK_HERE)**
+👉 **[Click Here to Visit the Live BotsNav Website(https://tefoabigailgasenna.github.io/CSE25-414/index.html)](YOUR_GITHUB_PAGES_LINK_HERE)**
 
-*(Alternatively, if exploring the code locally, simply download the repository and double-click on `index.html` to open it in your browser!)*
